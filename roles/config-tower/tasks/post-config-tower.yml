@@ -19,7 +19,13 @@
     tower_host: tower1.{{tower_GUID}}.example.opentlc.com
     tower_username: admin
     tower_password: r3dh4t1!
-    ssh_key_data: "{{ lookup('file', '/root/.ssh/openstack.pem') }}"
+    # If the SSH key includes comments, Tower will reject the key.
+    # The templating below removes lines from the key file beginning with a # character.
+    ssh_key_data: |
+      {% for line in lookup('file', '/root/.ssh/openstack.pem').split('\n') %}
+      {% if '#' not in line %}{{ line }}{% endif %}
+      {% endfor %}
+
     username: cloud-user
 
 - name: Create Inventory
