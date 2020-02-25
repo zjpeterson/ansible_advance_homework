@@ -1,2 +1,6 @@
 ---
 # defaults file for roles/config-tower
+# input the locations of SSH keys to be used
+keys:
+  personal: /root/.ssh/mykey.pem
+  openstack: /root/.ssh/openstack.pem
