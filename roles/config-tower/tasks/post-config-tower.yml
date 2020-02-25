@@ -53,7 +53,7 @@
     tower_username: admin
     tower_password: r3dh4t1!
     tower_verify_ssl: no
-    ssh_key_data: "{{ lookup('file', keys.personal }}"
+    ssh_key_data: "{{ lookup('file', keys.personal) }}"
     username: "{{ opentlc_login }}"
 
 - name: Remove secret
