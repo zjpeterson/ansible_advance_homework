@@ -1,5 +1,11 @@
 ---
 # tasks file for osp.servers
+- name: Copy public key to workstation
+  copy:
+    src: "{{ osp_key.public }}"
+    dest: "{{ osp_key.public }}"
+    mode: u+r
+
 - name: Create keypair for servers to use
   os_keypair:
     cloud: "{{ osp_cloud }}"
