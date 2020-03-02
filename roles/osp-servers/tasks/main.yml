@@ -44,17 +44,3 @@
     host: '{{ item }}'
     search_regex: OpenSSH
   loop: "{{ ip_assign | json_query('results[*].floating_ip.floating_ip_address') }}"
-
-- name: Get yum repo
-  get_url:
-    url: "{{ repo_location }}"
-    dest: /tmp/internal.repo
-
-- name: Setup yum repo
-  vars:
-    ansible_host: "{{ item }}"
-  copy:
-    src: /tmp/internal.repo
-    dest: /etc/yum.repos.d/internal.repo
-  loop: "{{ ip_assign | json_query('results[*].floating_ip.floating_ip_address') }}"
-  
