@@ -1,5 +1,6 @@
 ---
 # vars file for osp.servers
+osp_cloud: ospcloud
 osp_servers:
   - name: frontend
     state: present
