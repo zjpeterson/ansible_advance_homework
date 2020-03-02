@@ -1,5 +1,6 @@
 ---
 # vars file for osp.servers
+repo_location: http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
 osp_cloud: ospcloud
 osp_key:
   name: openstack
