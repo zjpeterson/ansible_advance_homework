@@ -3,20 +3,3 @@
   become: yes
   roles:
     - osp-servers
-    - osp-facts
-- hosts: QA
-  become: yes
-  roles:
-  - base-config
-- hosts: appdbs
-  become: yes
-  roles:
-  - db-tier
-- hosts: apps
-  become: yes
-  roles:
-  - app-tier
-- hosts: frontends
-  become: yes
-  roles:
-  - lb-tier
