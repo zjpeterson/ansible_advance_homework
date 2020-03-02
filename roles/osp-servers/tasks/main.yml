@@ -1,5 +1,12 @@
 ---
 # tasks file for osp.servers
+- name: Create keypair for servers to use
+  os_keypair:
+    cloud: "{{ osp_cloud }}"
+    state: present
+    name: "{{ osp_key.name }}"
+    public_key_file: "{{ osp_key.public }}"
+
 - name: Create new server instances and attaches them a network and passes metadata to the instance
   os_server:
     cloud: "{{ osp_cloud }}"
@@ -7,7 +14,7 @@
     name: "{{ item.name }}"
     meta: "{{ item.meta }}"
     flavor: "{{ item.flavor }}"
-    key_name: "{{ item.key_name }}"
+    key_name: "{{ osp_key.name }}"
     nics:
     - net-name: "{{ osp_network.internal.name }}"
     image: "{{ item.image }}"
