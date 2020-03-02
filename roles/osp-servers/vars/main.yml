@@ -1,6 +1,10 @@
 ---
 # vars file for osp.servers
 osp_cloud: ospcloud
+osp_key:
+  name: openstack
+  private: "~/.ssh/openstack.pem"
+  public: "~/.ssh/openstack.pub"
 osp_servers:
   - name: frontend
     state: present
