@@ -1,20 +1,16 @@
 ---
 # tasks file for osp.servers
-- name: Copy public key to workstation
-  copy:
-    content: |
-      {% for line in lookup('file', osp_key.public).split('\n') %}
-      {% if '#' not in line %}{{ line }}{% endif %}
-      {% endfor %}
-    dest: "{{ osp_key.public }}"
-    mode: u+r
+- name: Get public key
+  get_url:
+    url: "{{ osp_key.location }}"
+    dest: /tmp/{{ osp_key.name }}.pub
 
 - name: Create keypair for servers to use
   os_keypair:
     cloud: "{{ osp_cloud }}"
     state: present
     name: "{{ osp_key.name }}"
-    public_key_file: "{{ osp_key.public }}"
+    public_key_file: /tmp/{{ osp_key.name }}.pub
 
 - name: Create new server instances and attaches them a network and passes metadata to the instance
   os_server:

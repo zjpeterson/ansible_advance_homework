@@ -3,8 +3,7 @@
 osp_cloud: ospcloud
 osp_key:
   name: openstack
-  private: "/root/.ssh/openstack.pem"
-  public: "/root/.ssh/openstack.pub"
+  location: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
 osp_servers:
   - name: frontend
     state: present
