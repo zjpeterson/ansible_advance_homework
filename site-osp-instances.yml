@@ -16,3 +16,7 @@
   become: yes
   roles:
   - app-tier
+- hosts: frontends
+  become: yes
+  roles:
+  - lb-tier
