@@ -1,2 +1,21 @@
 ---
 # tasks file for db-tier
+- name: install postgres
+  yum:
+    name: postgresql-server
+    state: latest
+
+- name: initialize postgres
+  command: postgresql-setup initdb
+  register: pginit
+  failed_when:
+  - pginit.rc != 0
+  - pginit.stdout != 'Data directory is not empty!'
+  changed_when:
+  - pginit.rc == 0
+
+- name: enable postgres at boot
+  service:
+    name: postgresql
+    enabled: yes
+    state: started
