@@ -12,3 +12,7 @@
   become: yes
   roles:
   - db-tier
+- hosts: apps
+  become: yes
+  roles:
+  - app-tier
