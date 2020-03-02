@@ -3,8 +3,8 @@
 osp_cloud: ospcloud
 osp_key:
   name: openstack
-  private: "~/.ssh/openstack.pem"
-  public: "~/.ssh/openstack.pub"
+  private: "/root/.ssh/openstack.pem"
+  public: "/root/.ssh/openstack.pub"
 osp_servers:
   - name: frontend
     state: present
