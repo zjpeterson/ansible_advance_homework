@@ -2,7 +2,10 @@
 # tasks file for osp.servers
 - name: Copy public key to workstation
   copy:
-    src: "{{ osp_key.public }}"
+    content: |
+      {% for line in lookup('file', osp_key.public).split('\n') %}
+      {% if '#' not in line %}{{ line }}{% endif %}
+      {% endfor %}
     dest: "{{ osp_key.public }}"
     mode: u+r
 
