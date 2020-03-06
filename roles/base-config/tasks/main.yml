@@ -1,8 +1,8 @@
 ---
 # tasks file for base-config
 - name: Install repo file
-  get_url:
-    url: "{{ repo_url}}"
+  copy:
+    src: internal.repo
     dest: "{{ repo_dest }}"
   # don't apply this step to EC2 instances
   when: "'ec2' not in group_names"
