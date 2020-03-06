@@ -21,7 +21,7 @@
     tower_password: r3dh4t1!
     # If the SSH key includes comments, Tower will reject the key.
     # The lookup below removes lines containing "#" using grep.
-    ssh_key_data: "{{ lookup('pipe', 'cat ' + keys.openstack + ' | grep -v \"#\"') }}"
+    ssh_key_data: "{{ lookup('pipe', 'grep -v \"#\" | ' + keys.openstack) }}"
     username: cloud-user
 
 - name: Create Inventory
