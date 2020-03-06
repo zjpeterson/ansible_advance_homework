@@ -1,38 +1,41 @@
-Role Name
+osp-servers
 =========
 
-A brief description of the role goes here.
+This role provisions OpenStack serversm and applies network and security configuration to them, according to a dictionary provided by the user,
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The OpenStack clouds.yaml file must contain access information for a cloud with a name that you specify in this role in `osp_cloud`.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`osp_cloud` - The OSP cloud to reference according to your OSP workstation's clouds.yaml file.
 
-Dependencies
-------------
+`osp_servers` - A list of dictonaries, each defining a server to be built. Each dictionary should have a defined `name`, `image`, `flavor`, `security_group`, and `meta`. The `meta` value should be a dictonary containing `group` and `deployment_name`. Example list item:
+```
+  - name: app1
+    image: rhel-guest
+    flavor: m2.small
+    security_group: apps
+    meta:
+      group: apps
+      deployment_name: QA
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+`osp_network` - A dictonary defining the network details to be used. Sub-keys are `internal` and `external` for the respective network details. Each of those keys should have a `name` and `cidr` defined. Example:
+```
+osp_network:
+  internal:
+    name: int_network
+    cidr: 10.10.10.0/24
+  external:
+    name: ext_network
+    cidr: 20.20.20.0/24
+```
 
 License
 -------
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).

@@ -1,7 +1,7 @@
 config-tower
 =========
 
-A brief description of the role goes here.
+Role to configure the Ansible Tower installation with projects, credentials, job templates, etc. to build out the application.
 
 Task Files
 ------------
