@@ -1,12 +1,51 @@
-==== Ansible Tower Config
+==== Ansible Advanced Homework
 
+This project provisions a QA and Prod Three-tier Application, serving a load-balnaced Apache Tomcat page, with CI/CD workflow on OPENTLC lab environments.
 
-* From the cloned repo run `site-config-tower.yml` playbook to create job templates and workflow template.
+Instructions for use:
 
+* Go to https://labs.opentlc.com/ and order two services:
+  - OPENTLC Automation / Ansible Advanced - Homework
+  - OPENTLC Automation / Ansible Advanced - OpenStack
+* When the provisioning emails arrive, make a note of the GUID for each. They will be needed later.
+* When the Homework envrionment is ready, log into your bastion host using your OPENTLC private key, and become the `root` user
 [source,text]
 ----
-[bastion]$ sudo -i
-[bastion]# cd ansible_advance_homework
+[laptop ~]$ export TOWER_GUID=<Ansible Homework GUID from email>
+[laptop ~]$ export MYKEY=<~/.ssh/your_opentlc_key.pem>
+[laptop ~]$ export MYUSER=<username-company.com>
+[laptop ~]$ ssh -i ${MYKEY} ${MYUSER}@bastion.${TOWER_GUID}.example.opentlc.com
+[bastion ~]$ sudo -i
+[bastion ~]#
+----
+* Copy your OPENTLC private key into a file on your bastion host `/root/.ssh/mykey.pem`, and ensure its ownership and mode are appropriate (owner `root:root`, mode `0400`)
+[source,text]
+----
+[bastion ~]# ls -l /root/.ssh/mykey.pem
+-r--------. 1 root root 90 Mar  5 19:13 /root/.ssh/mykey.pem
+----
+* Clone this repository into `/root` on the bastion host and change into the cloned directory
+[source,text]
+----
+[bastion ~]# pwd
+/root
+[bastion ~]# git clone https://github.com/zjpeterson/ansible_advance_homework.git
+Cloning into 'ansible_advance_homework'...
+remote: Enumerating objects: 583, done.
+remote: Total 583 (delta 0), reused 0 (delta 0), pack-reused 583
+Receiving objects: 100% (583/583), 71.69 KiB | 1.04 MiB/s, done.
+Resolving deltas: 100% (257/257), done.
+[bastion ~]# cd ansible_advance_homework
+----
+* Set up the OpenStack environment by executing the `site-setup-workstation.yml` playbook, specifying extra vars as shown below:
+[source,text]
+----
+[bastion]# OSP_GUID=<OpenStack GUID from mail>
+[bastion]# ansible-playbook site-setup-workstation.yml -e OSP_GUID=${OSP_GUID} --private-key=/root/.ssh/mykey.pem -u <username-company.com>
+----
+* Set up the Ansible Tower environment by executing the `site-config-tower.yml` playbook, specifying extra vars as shown below:
+[source,text]
+----
 [bastion]# TOWER_GUID=<Ansible Tower Homework GUID from mail>
 [bastion]# OSP_GUID=<Openstack for Ansible GUID from mail>
 [bastion]# OPENTLC_LOGIN=<username-company.com>
@@ -22,7 +61,7 @@
 .List of Playbooks
 [%header,cols=2*]
 |===
-| Files or dir | Purpose
+| File | Purpose
 | app-tier | Install application server role
 | db-tier  | Install postgressql server for database role
 | lb-tier  | Install HA proxy role
@@ -51,3 +90,4 @@
 | roles/config-tower/tasks/workflow_template.yml | genrate workflow from `workflow.yml` file
 | roles/config-tower/tasks/post-config-tower.yml | any post config jobs
 |===
+A similar table of roles can be found in the README under `roles/`
