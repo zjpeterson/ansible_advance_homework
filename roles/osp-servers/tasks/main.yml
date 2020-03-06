@@ -38,6 +38,13 @@
   loop: "{{ osp_servers }}"
   register: ip_assign
 
+- name: Ensure servers are started
+  os_server_action:
+    cloud: "{{ osp_cloud }}"
+    action: start
+    server: "{{ item.name }}"
+  loop: "{{ osp_servers }}"
+
 - name: Wait for servers to offer SSH
   wait_for:
     port: 22
