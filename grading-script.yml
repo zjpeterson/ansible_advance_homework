@@ -1,5 +1,7 @@
+---
 - hosts: localhost
   gather_facts: false
+
   tasks:
   - name: Create In-memory Inventory
     add_host: 
@@ -10,6 +12,7 @@
  
 - hosts: workstation
   gather_facts: false
+
   tasks:
   - name: OpenStack servers
     os_server_facts:
@@ -29,6 +32,7 @@
   
 - hosts: localhost
   gather_facts: false
+  
   tasks:
   - name: Curl website
     command: curl "http://frontend1.{{ ANSIBLE_ADVANCE_GUID }}.example.opentlc.com"

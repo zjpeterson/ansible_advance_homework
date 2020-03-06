@@ -1,7 +1,10 @@
+---
 - hosts: tag_AnsibleGroup_bastions
   gather_facts: true
   become: true
+  # changed connection to speed it up as it was timing out
   connection: paramiko
+
   tasks:
   - name: Install required packages 
     yum: 
@@ -25,7 +28,7 @@
       organization: Default
       state: present
       kind: ssh
-      tower_host: tower1.{{tower_guid}}.example.opentlc.com
+      tower_host: tower1.{{ tower_guid }}.example.opentlc.com
       tower_username: admin
       tower_password: r3dh4t1!
       tower_verify_ssl: no
@@ -35,7 +38,7 @@
     tower_job_template:
       name: "3 tier app on Prod"
       credential: "Creds for AWS instances"
-      tower_host: tower1.{{tower_guid}}.example.opentlc.com
+      tower_host: tower1.{{ tower_guid }}.example.opentlc.com
       tower_username: admin
       tower_password: r3dh4t1!
       tower_verify_ssl: no
@@ -47,7 +50,7 @@
     tower_job_template:
       name: "Smoke test Prod env"
       credential: "Creds for AWS instances"
-      tower_host: tower1.{{tower_guid}}.example.opentlc.com
+      tower_host: tower1.{{ tower_guid }}.example.opentlc.com
       tower_username: admin
       tower_password: r3dh4t1!
       tower_verify_ssl: no

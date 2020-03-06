@@ -1,5 +1,7 @@
+---
 - hosts: tag_instance_filter_three_tier_app_zpeterso_redhat_com
   gather_facts: false
+  
   tasks:
   - name: Check the instances status
     wait_for:
