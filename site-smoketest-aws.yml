@@ -1,5 +1,7 @@
+---
 - hosts: frontends
   gather_facts: false
+
   tasks:
   - name: Use Uri module for wrting smoke test.
     uri:
@@ -9,3 +11,4 @@
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
     when: "'Ansible has done its job' not in webpage.content"
+    

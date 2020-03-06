@@ -1,5 +1,7 @@
+---
 - hosts: workstation
   gather_facts: false
+  
   tasks:
   - name: OpenStack servers
     os_server_info:
