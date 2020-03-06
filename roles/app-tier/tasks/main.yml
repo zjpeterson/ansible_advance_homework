@@ -3,7 +3,7 @@
 - name: install tomcat
   yum:
     name: tomcat
-    state: latest
+    state: present
 
 - name: create tomcat root directory
   file:
