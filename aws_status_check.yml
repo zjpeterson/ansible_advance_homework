@@ -1,5 +1,5 @@
 ---
-- hosts: tag_instance_filter_three_tier_app_{{ EMAIL }}*
+- hosts: tag_instance_filter_three_tier_app_{{ email_root }}*
   gather_facts: false
 
   tasks:
