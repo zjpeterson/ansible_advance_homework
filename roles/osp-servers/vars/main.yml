@@ -1,13 +1,11 @@
 ---
 # vars file for osp.servers
-repo_location: http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
 osp_cloud: ospcloud
 osp_key:
   name: openstack
   location: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
 osp_servers:
   - name: frontend
-    state: present
     image: rhel-guest
     flavor: m2.small
     security_group: frontend
@@ -15,7 +13,6 @@ osp_servers:
       group: frontends
       deployment_name: QA
   - name: app1
-    state: present
     image: rhel-guest
     flavor: m2.small
     security_group: apps
@@ -23,7 +20,6 @@ osp_servers:
       group: apps
       deployment_name: QA
   - name: app2
-    state: present
     image: rhel-guest
     flavor: m2.small
     security_group: apps
@@ -31,7 +27,6 @@ osp_servers:
       group: apps
       deployment_name: QA
   - name: db
-    state: present
     image: rhel-guest
     flavor: m2.small
     security_group: db
