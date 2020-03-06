@@ -2,7 +2,7 @@
 # tasks file for base-config
 - name: Install repo file
   get_url:
-    url: http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
-    dest: /etc/yum.repos.d/internal.repo
+    url: "{{ repo_url}}"
+    dest: "{{ repo_dest }}"
   # don't apply this step to EC2 instances
   when: "'ec2' not in group_names"
