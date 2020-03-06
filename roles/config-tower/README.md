@@ -1,38 +1,33 @@
-Role Name
+config-tower
 =========
 
 A brief description of the role goes here.
 
-Requirements
+Task Files
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* `ec2_dynamic.yml` - For creating Dynamic inventory in Ansible tower. Use `AWS Access Key` for credential
+* `job_template.yml` - For creating job templates
+* `pre-config-tower.yml` - Any pre config tasks needed
+* `workflow_template.yml` - genrate workflow from `workflow.yml` file
+* `post-config-tower.yml` - any post config jobs
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+In `defaults/main.yml`, define a dictionary containing key locations like so:
+```
+keys:
+  personal: /root/.ssh/mykey.pem
+  openstack: /root/.ssh/openstack.pem
+```
+You should have put these keys in place and verified their existence.
+* `keys.personal` is your OPENTLC private key to be used for accessing OpenStack via Tower Bastion
+* `keys.openstack` is the lab-distributed OpenStack private key.
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+There are several variables set in `vars/main.yml` that should not be changed.
 
 License
 -------
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
