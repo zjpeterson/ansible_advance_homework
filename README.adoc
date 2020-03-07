@@ -1,4 +1,4 @@
-==== Ansible Advanced Homework
+== Ansible Advanced Homework
 
 This project provisions a QA and Prod Three-tier Application, serving a load-balnaced Apache Tomcat page, with CI/CD workflow on OPENTLC lab environments.
 
