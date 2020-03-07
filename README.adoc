@@ -53,7 +53,17 @@ Cloning into 'ansible_advance_homework'...
 [bastion]# RH_MAIL_ID=<your mail id for dynamic inventory tag>
 [bastion]# ansible-playbook site-config-tower.yml -e tower_GUID=${TOWER_GUID} -e osp_GUID=${OSP_GUID} -e opentlc_login=${OPENTLC_LOGIN} -e path_to_opentlc_key=/root/.ssh/mykey.pem -e param_repo_base=${JQ_REPO_BASE} -e opentlc_password=${OPENTLC_PASSWORD} -e REGION_NAME=${REGION} -e EMAIL=${RH_MAIL_ID} -e github_repo=${GITHUB_REPO}
 ----
-
+* When this completes, you should be able to log into Ansible Tower in a web browser at https://tower1.<TOWER GUID>.example.opentlc.com/ using default credentials from the tower setup playbooks. Run the workflow template "cicd_workflow".
+* The workflow template does the following:
+  - Updates the project from Git
+  - Provisions QA and Prod environments concurrently
+  - Installs the application in QA
+  - Smoke tests the installed QA environment
+  - Installs the application in Prod if QA smoke test succeeded
+  - Destroys the QA environment if QA smoke test failed
+  - Smoke tests the installed Prod environment
+* You can review any individual step of the workflow by clicking "DETAILS" on its workflow segment.
+* Look for success of the entire workflow job to indicate that everything went as expected.
 
 .List of Playbooks
 [%header,cols=2*]
